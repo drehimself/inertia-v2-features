@@ -1,18 +1,23 @@
 <?php
 
+use App\Http\Controllers\DeferredPropsController;
+use App\Http\Controllers\LoadWhenVisibleController;
+use App\Http\Controllers\MergingPropsController;
+use App\Http\Controllers\PollingController;
+use App\Http\Controllers\PrefetchingController;
 use App\Http\Controllers\ProfileController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+    return Inertia::render('Welcome');
 });
+
+Route::get('/polling', PollingController::class)->name('polling');
+Route::get('/deferred-props', DeferredPropsController::class)->name('deferred-props');
+Route::get('/prefetching', PrefetchingController::class)->name('prefetching');
+Route::get('/load-when-visible', LoadWhenVisibleController::class)->name('load-when-visible');
+Route::get('/merging-props', MergingPropsController::class)->name('merging-props');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
