@@ -14,14 +14,18 @@ class MergingPropsController extends Controller
     public function __invoke()
     {
         return Inertia::render('MergingProps', [
-            'posts' => $this->getPosts(),
+            'posts' => Inertia::merge(fn () => $this->getPosts()->items()),
+            'currentPage' => $this->getPosts()->currentPage(),
+            'lastPage' => $this->getPosts()->lastPage(),
         ]);
     }
 
     public function getPosts()
     {
-        return Post::all()
-            ->map(fn ($post) => [
+        // sleep(1);
+
+        return Post::paginate(10)
+            ->through(fn ($post) => [
                 'id' => $post->id,
                 'title' => $post->title,
                 'created_at' => $post->created_at->format('M d, Y'),

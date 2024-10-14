@@ -1,5 +1,5 @@
 <script setup>
-import { Head, Link } from '@inertiajs/vue3'
+import { Head, Link, WhenVisible } from '@inertiajs/vue3'
 
 defineProps({
   users: Array,
@@ -128,7 +128,13 @@ defineProps({
       </div>
 
       <section class="mt-8">
-        <div v-for="user in users" :key="user.id">{{ user.name }}</div>
+        <WhenVisible data="users" :buffer="500">
+          <template #fallback>
+            <div>Loading...</div>
+          </template>
+
+          <div v-for="user in users" :key="user.id">{{ user.name }}</div>
+        </WhenVisible>
       </section>
     </div>
   </div>

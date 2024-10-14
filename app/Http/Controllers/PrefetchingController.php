@@ -20,6 +20,8 @@ class PrefetchingController extends Controller
 
     private function getUsers()
     {
+        sleep(2);
+
         return User::all();
     }
 }

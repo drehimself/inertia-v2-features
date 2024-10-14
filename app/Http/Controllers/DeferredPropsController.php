@@ -16,13 +16,15 @@ class DeferredPropsController extends Controller
     public function __invoke()
     {
         return Inertia::render('DeferredProps', [
-            'stats' => $this->getStats(),
-            'users' => $this->getUsers(),
+            'stats' => Inertia::defer(fn () => $this->getStats(), 'stats'),
+            'users' => Inertia::defer(fn () => $this->getUsers(), 'users'),
         ]);
     }
 
     private function getStats()
     {
+        sleep(2);
+
         return [
             ['name' => 'Total Users', 'stat' => User::count()],
             ['name' => 'Total Posts', 'stat' => Post::count()],
@@ -32,6 +34,8 @@ class DeferredPropsController extends Controller
 
     private function getUsers()
     {
+        sleep(4);
+
         return User::all()
             ->map(fn ($user) => [
                 'id' => $user->getRouteKey(),

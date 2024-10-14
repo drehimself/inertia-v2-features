@@ -1,5 +1,11 @@
 <script setup>
-import { Head, Link } from '@inertiajs/vue3'
+import { Head, Link, router } from '@inertiajs/vue3'
+
+router.prefetch(
+  route('prefetching'),
+  { method: 'get', data: {} },
+  { cacheFor: '1m' }
+)
 </script>
 
 <template>

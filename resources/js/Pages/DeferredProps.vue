@@ -3,7 +3,7 @@ import StatsOverview from '@/Components/StatsOverview.vue'
 import StatsOverviewLoading from '@/Components/StatsOverviewLoading.vue'
 import TableUsers from '@/Components/TableUsers.vue'
 import TableUsersLoading from '@/Components/TableUsersLoading.vue'
-import { Head, Link } from '@inertiajs/vue3'
+import { Deferred, Head, Link } from '@inertiajs/vue3'
 
 defineProps({
   stats: Object,
@@ -19,12 +19,24 @@ defineProps({
       <Link href="/" class="text-blue-600 hover:underline"> < Back </Link>
 
       <div class="mt-4">
-        <StatsOverview :stats />
+        <Deferred data="stats">
+          <template #fallback>
+            <StatsOverviewLoading />
+          </template>
+
+          <StatsOverview :stats />
+        </Deferred>
       </div>
 
       <section>
         <div class="mt-8 flow-root">
-          <TableUsers :users />
+          <Deferred data="users">
+            <template #fallback>
+              <TableUsersLoading />
+            </template>
+
+            <TableUsers :users />
+          </Deferred>
         </div>
       </section>
     </div>

@@ -18,7 +18,6 @@ class PollingController extends Controller
         $stats = [
             ['name' => 'Total Users', 'stat' => User::count()],
             ['name' => 'Total Posts', 'stat' => Post::count()],
-            // ['name' => 'Orders Revenue', 'stat' => Number::currency(Order::sum('total'))],
             ['name' => 'Orders Revenue', 'stat' => '$'.Number::abbreviate(Order::sum('total'), 2)],
         ];
 

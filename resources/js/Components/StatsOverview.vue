@@ -1,4 +1,8 @@
 <script setup>
+import { usePoll } from '@inertiajs/vue3'
+
+// usePoll(2000)
+
 const props = defineProps({
   stats: Object,
 })

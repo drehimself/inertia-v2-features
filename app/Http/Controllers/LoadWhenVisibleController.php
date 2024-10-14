@@ -14,12 +14,14 @@ class LoadWhenVisibleController extends Controller
     public function __invoke(Request $request)
     {
         return Inertia::render('LoadWhenVisible', [
-            'users' => $this->getUsers(),
+            'users' => Inertia::optional(fn () => $this->getUsers()),
         ]);
     }
 
     public function getUsers()
     {
+        sleep(2);
+
         return User::all();
     }
 }
